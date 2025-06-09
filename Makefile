@@ -1,7 +1,9 @@
+export BUILD_DIR = $(shell realpath build)
+
 basic:
-	@make -f Makefile.basic
+	@make -f basic/Makefile.basic
 
 basic_clean:
-	@make -f Makefile.basic clean
+	@make -f basic/Makefile.basic clean
 
 .PHONY: basic basic_clean
