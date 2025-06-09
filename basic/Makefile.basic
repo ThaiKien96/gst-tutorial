@@ -1,0 +1,20 @@
+CC = gcc
+CFLAGS = $(shell pkg-config --cflags gstreamer-1.0 gstreamer-video-1.0)
+LDFLAGS = $(shell pkg-config --libs gstreamer-1.0 gstreamer-video-1.0)
+SRC_DIR = basic
+OUT_DIR = $(BUILD_DIR)
+
+SRC_FILES = $(wildcard $(SRC_DIR)/*.c)
+TARGETS = $(patsubst $(SRC_DIR)/%.c, $(OUT_DIR)/%, $(SRC_FILES))
+
+all: $(TARGETS)
+
+$(OUT_DIR)/%: $(SRC_DIR)/%.c
+	@echo "Compiling $< to $(@:.c=)"
+	@mkdir -p $(OUT_DIR)
+	@$(CC) $(CFLAGS) -o $(@:.c=) $< $(LDFLAGS)
+
+clean:
+	@rm -rf $(OUT_DIR)
+
+.PRONY: all clean
